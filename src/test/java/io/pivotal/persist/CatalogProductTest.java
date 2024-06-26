@@ -1,18 +1,24 @@
 package io.pivotal.persist;
 
+import io.pivotal.persist.entities.CatalogEntity;
+import io.pivotal.persist.entities.ProductEntity;
+import io.pivotal.persist.repositories.CatalogRepository;
+import io.pivotal.persist.repositories.ProductRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
+import static io.pivotal.persist.ProductTest.createProductEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
 class CatalogProductTest {
 
 	@Autowired
@@ -21,13 +27,29 @@ class CatalogProductTest {
 	@Autowired
 	ProductRepository productRepository;
 
-	@Test
-	void saveCatalog() {
-		CatalogEntity catalogEntity = CatalogEntity.builder()
+	private static CatalogEntity createCatalogEntity() {
+		return CatalogEntity.builder()
 			.name("namer")
 			.description("My Catalog has a name")
+			.startDate(LocalDate.now())
+			.endDate(LocalDate.now().plusYears(1))
 			.createdDate(Instant.now())
 			.build();
+	}
+
+	@BeforeEach
+	void setUp() {
+		catalogRepository.deleteAll();
+	}
+
+	@AfterEach
+	void tearDown() {
+		catalogRepository.deleteAll();
+	}
+
+	@Test
+	void saveCatalog() {
+		CatalogEntity catalogEntity = createCatalogEntity();
 
 		CatalogEntity savedCatalog = catalogRepository.save(catalogEntity);
 
@@ -35,62 +57,28 @@ class CatalogProductTest {
 	}
 
 	@Test
-	void saveProduct() {
-		ProductEntity productEntity = ProductEntity.builder()
-			.name("namer")
-			.description("My Product has a name")
-			.sku("ABC-12345-S-BL")
-			.createdDate(Instant.now())
-			.build();
-
-		ProductEntity savedProduct = productRepository.save(productEntity);
-
-		assertThat(productRepository.findById(savedProduct.getId())).isPresent();
-	}
-
-	@Test
 	void saveCatalogWithProduct() {
-		ProductEntity productEntity = ProductEntity.builder()
-			.name("namer")
-			.description("My Product has a name")
-			.sku("ABC-12345-S-BL")
-			.createdDate(Instant.now())
-			.build();
+		ProductEntity productEntity = createProductEntity();
+		CatalogEntity catalogEntity = createCatalogEntity();
+		catalogEntity.addProduct(productEntity);
 
-		CatalogEntity catalogEntity = CatalogEntity.builder()
-			.name("namer")
-			.description("My Catalog has a name")
-			.createdDate(Instant.now())
-			.products(List.of(productEntity))
-			.build();
+		catalogRepository.save(catalogEntity);
 
-		CatalogEntity savedCatalog = catalogRepository.save(catalogEntity);
-
-		Optional<CatalogEntity> foundCatalog = catalogRepository.findById(savedCatalog.getId());
-		assertThat(foundCatalog).isPresent();
-		assertThat(foundCatalog.get().getProducts()).hasSize(1);
+		List<CatalogEntity> foundCatalog = catalogRepository.findAll();
+		assertThat(foundCatalog).hasSize(1);
+		assertThat(foundCatalog.get(0).getProducts()).hasSize(1);
 	}
 
 	@Test
 	void saveProductWithCatalog() {
-		CatalogEntity catalogEntity = CatalogEntity.builder()
-			.name("namer")
-			.description("My Catalog has a name")
-			.createdDate(Instant.now())
-			.build();
+		CatalogEntity catalogEntity = createCatalogEntity();
+		ProductEntity productEntity = createProductEntity();
+		productEntity.addCatalog(catalogEntity);
 
-		ProductEntity productEntity = ProductEntity.builder()
-			.name("namer")
-			.description("My Product has a name")
-			.sku("ABC-12345-S-BL")
-			.createdDate(Instant.now())
-			.catalogs(List.of(catalogEntity))
-			.build();
+		productRepository.save(productEntity);
 
-		ProductEntity savedProduct = productRepository.save(productEntity);
-
-		Optional<ProductEntity> foundProduct = productRepository.findById(savedProduct.getId());
-		assertThat(foundProduct).isPresent();
-		assertThat(foundProduct.get().getCatalogs()).hasSize(1);
+		List<ProductEntity> foundProduct = productRepository.findAll();
+		assertThat(foundProduct).hasSize(1);
+		assertThat(foundProduct.get(0).getCatalogs()).hasSize(1);
 	}
 }

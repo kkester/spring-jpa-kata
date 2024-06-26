@@ -1,4 +1,20 @@
-# Getting Started
+# Spring JPA Code Kata
+
+The intent of this Kata is to practice working with relation database design.  This exercise entails defining various types of database constraints such as primary keys, compound primary keys, uniques constraints, and foreign key constraints.  In addition, the exercise will involve defining various types of relations between entities such as `One to One`, `One to Many`, and `Many to Many`.
+
+The project comes with a set of Spring Boot tests and the minimal code needed for them to compile.  The goal of the exercise is to implement the code needed to get the tests to pass.  The project comes with a `compose.yaml` file that will spin up a PostGRES docker container.  This container must be running in order for the tests to pass.
+
+The project leverages `flyway` for database initialization.  There is a `scripts` folder which can be used to generate migration scripts. 
+
+### Prerequisites 
+
+This project requires the following tools to be installed.
+* Java 21
+* Docker
+
+### The Domain Model
+
+This project contains four domains: Catalog, Product, Inventory, and Category.  Catalog, Product, and Category are independent entities and can exist on their own.  Inventory requires the existence of a product for which the inventory data pertains.  Catalogs contain a collection or products and products can belong to multiple catalogs.  A category contains multiple products, but a product can only belong to one category.  Each product contains a sku which must be unique across all products and may have an optional inventory status associated with it. 
 
 ### Reference Documentation
 For further reference, please consider the following sections:

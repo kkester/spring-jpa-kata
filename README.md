@@ -4,8 +4,6 @@ The intent of this Kata is to practice working with relation database design.  T
 
 The project comes with a set of Spring Boot tests and the minimal code needed for them to compile.  The goal of the exercise is to implement the code needed to get the tests to pass.  The project comes with a `compose.yaml` file that will spin up a PostGRES docker container.  This container must be running in order for the tests to pass.
 
-The project leverages `flyway` for database initialization.  There is a `scripts` folder which can be used to generate migration scripts. 
-
 ### Prerequisites 
 
 This project requires the following tools to be installed.

@@ -53,10 +53,12 @@ class CatalogProductTest {
 
 		CatalogEntity savedCatalog = catalogRepository.save(catalogEntity);
 
-		assertThat(catalogRepository.findById(savedCatalog.getId())).isPresent();
+		List<CatalogEntity> catalogEntities = catalogRepository.findAll();
+		assertThat(catalogEntities).hasSize(1);
 	}
 
 	@Test
+	@Transactional
 	void saveCatalogWithProduct() {
 		ProductEntity productEntity = createProductEntity();
 		CatalogEntity catalogEntity = createCatalogEntity();
@@ -70,6 +72,7 @@ class CatalogProductTest {
 	}
 
 	@Test
+	@Transactional
 	void saveProductWithCatalog() {
 		CatalogEntity catalogEntity = createCatalogEntity();
 		ProductEntity productEntity = createProductEntity();

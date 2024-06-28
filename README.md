@@ -2,7 +2,7 @@
 
 The intent of this Kata is to practice working with relation database design.  This exercise entails defining various types of database constraints such as primary keys, compound primary keys, uniques constraints, and foreign key constraints.  In addition, the exercise will involve defining various types of relations between entities such as `One to One`, `One to Many`, and `Many to Many`.
 
-The project comes with a set of Spring Boot tests and the minimal code needed for them to compile.  The goal of the exercise is to implement the code needed to get the tests to pass.  The project comes with a `compose.yaml` file that will spin up a PostGRES docker container.  This container must be running in order for the tests to pass.
+The project comes with a set of Spring Boot tests and the minimal code needed for them to compile.  The goal of the exercise is to implement the code needed to get the tests to pass.  The project comes with a `compose.yaml` file that will spin up a PostGRES docker container.  This container must be running in order for the tests to pass.  When starting the kata, it is recommended to start with the `ProductTest` and then move on to the other tests once that one is green.
 
 ### Prerequisites 
 

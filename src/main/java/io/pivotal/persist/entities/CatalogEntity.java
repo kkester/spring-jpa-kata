@@ -30,7 +30,7 @@ public class CatalogEntity {
 
     private Instant createdDate;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "CATALOG_PRODUCT", joinColumns = @JoinColumn(name = "CATALOG_ID"), inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     @Builder.Default
     private List<ProductEntity> products = new ArrayList<>();

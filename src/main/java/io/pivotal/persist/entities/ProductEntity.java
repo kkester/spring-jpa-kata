@@ -35,7 +35,7 @@ public class ProductEntity {
     @JoinColumn(name = "CATEGORY_ID")
     private CategoryEntity category;
 
-    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
+    @ManyToMany//(mappedBy = "products", cascade = CascadeType.ALL)
     @Builder.Default
     private List<CatalogEntity> catalogs = new ArrayList<>();
 

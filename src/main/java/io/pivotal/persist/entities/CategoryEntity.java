@@ -26,7 +26,7 @@ public class CategoryEntity {
 
     private Instant createdDate;
     
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany//(mappedBy = "category", cascade = CascadeType.ALL)
     @Builder.Default
     @JsonIgnore
     private List<ProductEntity> products = new ArrayList<>();

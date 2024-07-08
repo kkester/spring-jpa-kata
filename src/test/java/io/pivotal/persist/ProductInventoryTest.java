@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@Transactional
 class ProductInventoryTest {
 
     @Autowired
@@ -28,16 +30,6 @@ class ProductInventoryTest {
             .status(InventoryStatus.IN_STOCK)
             .quantity(10)
             .build();
-    }
-
-    @BeforeEach
-    void setUp() {
-        productRepository.deleteAll();
-    }
-
-    @AfterEach
-    void tearDown() {
-        productRepository.deleteAll();
     }
 
     @Test

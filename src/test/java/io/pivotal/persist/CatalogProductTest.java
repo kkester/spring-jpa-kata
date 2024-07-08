@@ -19,6 +19,7 @@ import static io.pivotal.persist.ProductTest.createProductEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 class CatalogProductTest {
 
 	@Autowired
@@ -37,16 +38,6 @@ class CatalogProductTest {
 			.build();
 	}
 
-	@BeforeEach
-	void setUp() {
-		catalogRepository.deleteAll();
-	}
-
-	@AfterEach
-	void tearDown() {
-		catalogRepository.deleteAll();
-	}
-
 	@Test
 	void saveCatalog() {
 		CatalogEntity catalogEntity = createCatalogEntity();
@@ -58,7 +49,6 @@ class CatalogProductTest {
 	}
 
 	@Test
-	@Transactional
 	void saveCatalogWithProduct() {
 		ProductEntity productEntity = createProductEntity();
 		CatalogEntity catalogEntity = createCatalogEntity();
@@ -72,7 +62,6 @@ class CatalogProductTest {
 	}
 
 	@Test
-	@Transactional
 	void saveProductWithCatalog() {
 		CatalogEntity catalogEntity = createCatalogEntity();
 		ProductEntity productEntity = createProductEntity();

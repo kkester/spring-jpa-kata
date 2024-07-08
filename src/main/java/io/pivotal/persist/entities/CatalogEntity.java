@@ -1,5 +1,6 @@
 package io.pivotal.persist.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,7 @@ public class CatalogEntity {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "CATALOG_PRODUCT", joinColumns = @JoinColumn(name = "CATALOG_ID"), inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
     @Builder.Default
+    @JsonIgnore
     private List<ProductEntity> products = new ArrayList<>();
 
     public void addProduct(ProductEntity productEntity) {

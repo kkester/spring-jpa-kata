@@ -1,5 +1,6 @@
 package io.pivotal.persist.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,6 +28,7 @@ public class CategoryEntity {
     
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @Builder.Default
+    @JsonIgnore
     private List<ProductEntity> products = new ArrayList<>();
 
     public void addProduct(ProductEntity productEntity) {

@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@Transactional
 class CategoryProductTest {
 
 	@Autowired
@@ -34,16 +35,6 @@ class CategoryProductTest {
 			.displayText("My Category has display text")
 			.createdDate(Instant.now())
 			.build();
-	}
-
-	@BeforeEach
-	void setUp() {
-		categoryRepository.deleteAll();
-	}
-
-	@AfterEach
-	void tearDown() {
-		categoryRepository.deleteAll();
 	}
 
 	@Test
@@ -76,7 +67,6 @@ class CategoryProductTest {
 	}
 
 	@Test
-	@Transactional
 	void saveCategoryWithProduct() {
 		ProductEntity productEntity = createProductEntity();
 		CategoryEntity categoryEntity = createCategory();

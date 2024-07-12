@@ -26,6 +26,7 @@ public class ProductEntity {
 
     private CategoryEntity category;
 
+    @Builder.Default
     private List<CatalogEntity> catalogs = new ArrayList<>();
 
     public void applyInventoryStatus(InventoryStatusEntity inventoryStatus) {

@@ -25,6 +25,7 @@ public class CatalogEntity {
 
     private LocalDateTime createdDate;
 
+    @Builder.Default
     private List<ProductEntity> products = new ArrayList<>();
 
     public void addProduct(ProductEntity productEntity) {

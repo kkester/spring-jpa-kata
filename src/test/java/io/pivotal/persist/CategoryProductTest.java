@@ -1,18 +1,17 @@
 package io.pivotal.persist;
 
+import io.pivotal.persist.entities.CatalogEntity;
 import io.pivotal.persist.entities.CategoryEntity;
 import io.pivotal.persist.entities.ProductEntity;
 import io.pivotal.persist.repositories.CategoryRepository;
 import io.pivotal.persist.repositories.ProductRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static io.pivotal.persist.ProductTest.createProductEntity;
@@ -33,7 +32,7 @@ class CategoryProductTest {
 		return CategoryEntity.builder()
 			.name("namer")
 			.displayText("My Category has display text")
-			.createdDate(Instant.now())
+			.createdDate(LocalDateTime.now())
 			.build();
 	}
 
@@ -41,9 +40,10 @@ class CategoryProductTest {
 	void saveCategory() {
 		CategoryEntity categoryEntity = createCategory();
 
-		CategoryEntity savedCategory = categoryRepository.save(categoryEntity);
+		categoryRepository.save(categoryEntity);
 
-		assertThat(categoryRepository.findById(savedCategory.getId())).isPresent();
+		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+		assertThat(categoryEntities).hasSize(1);
 	}
 
 	@Test

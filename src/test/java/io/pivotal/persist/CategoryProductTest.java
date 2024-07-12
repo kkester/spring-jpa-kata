@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static io.pivotal.persist.ProductTest.createProductEntity;
@@ -32,7 +32,7 @@ class CategoryProductTest {
 		return CategoryEntity.builder()
 			.name("namer")
 			.displayText("My Category has display text")
-			.createdDate(Instant.now())
+			.createdDate(LocalDateTime.now())
 			.build();
 	}
 

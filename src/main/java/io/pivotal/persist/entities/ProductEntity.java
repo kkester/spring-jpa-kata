@@ -2,7 +2,7 @@ package io.pivotal.persist.entities;
 
 import lombok.*;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class ProductEntity {
 
     private String sku;
 
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     private InventoryStatusEntity inventoryStatus;
 

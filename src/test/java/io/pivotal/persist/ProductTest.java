@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,7 +25,7 @@ class ProductTest {
 			.name("namer")
 			.description("My Product has a name")
 			.sku("ABC-12345-S-BL")
-			.createdDate(Instant.now())
+			.createdDate(LocalDateTime.now())
 			.build();
 	}
 
@@ -64,7 +64,7 @@ class ProductTest {
 
 		productRepository.save(productEntity);
 
-		ProductEntity duplicate = ProductEntity.builder().name("bad").sku(productEntity.getSku()).createdDate(Instant.now()).build();
+		ProductEntity duplicate = ProductEntity.builder().name("bad").sku(productEntity.getSku()).createdDate(LocalDateTime.now()).build();
 		var error = assertThrows(
 			DataIntegrityViolationException.class,
 			() -> productRepository.save(duplicate));

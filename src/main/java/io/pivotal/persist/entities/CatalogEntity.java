@@ -2,8 +2,8 @@ package io.pivotal.persist.entities;
 
 import lombok.*;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class CatalogEntity {
 
     private LocalDate endDate;
 
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     private List<ProductEntity> products = new ArrayList<>();
 

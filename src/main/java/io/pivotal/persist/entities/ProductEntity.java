@@ -3,7 +3,7 @@ package io.pivotal.persist.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ProductEntity {
 
     private String sku;
 
-    private Instant createdDate;
+    private LocalDateTime createdDate;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn

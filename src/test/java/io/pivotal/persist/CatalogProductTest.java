@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static io.pivotal.persist.ProductTest.createProductEntity;
@@ -33,7 +33,7 @@ class CatalogProductTest {
 			.description("My Catalog has a name")
 			.startDate(LocalDate.now())
 			.endDate(LocalDate.now().plusYears(1))
-			.createdDate(Instant.now())
+			.createdDate(LocalDateTime.now())
 			.build();
 	}
 
@@ -51,7 +51,7 @@ class CatalogProductTest {
 	void saveCatalog() {
 		CatalogEntity catalogEntity = createCatalogEntity();
 
-		CatalogEntity savedCatalog = catalogRepository.save(catalogEntity);
+		catalogRepository.save(catalogEntity);
 
 		List<CatalogEntity> catalogEntities = catalogRepository.findAll();
 		assertThat(catalogEntities).hasSize(1);
